@@ -1,0 +1,167 @@
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: coral;
+    padding: 20px;
+    margin: 0;
+}
+
+body{
+    margin: 0;
+}
+
+#mainContainer{
+    padding-top: 0.1em;
+    background-color: lightgray;
+
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+}
+
+
+body{
+    background-color: lightgray;
+}
+
+#balance{
+    font-family: 'Segoe UI';
+    font-size: 3em; 
+    grid-column: 1/5;
+    justify-self: center;
+}
+
+#inAndOutList{
+    list-style-type: none;
+    grid-column: 1/5;
+    justify-self: center;
+    
+}
+
+.inAndOutListElement{
+    font-family: 'Segoe UI';
+    font-size: 40px;
+    font-weight: bolder;
+    display: inline;
+    margin-right: 2em;
+}
+
+#entries{
+    color: limegreen;
+}
+
+#outings{
+    color: red
+}
+
+.addBTN{
+    padding:10px;
+    border-radius: 20%;
+    border-style: solid;
+}
+
+.addBTN:hover{
+    background-color: grey;
+    color:white;
+    border-color: rgb(182, 182, 182);
+}
+
+label{
+    font-family: 'Trebuchet MS';
+    font-size: 18px;
+}
+
+.submitBTN{
+    padding: 5px;
+    border-style: solid;
+    border-radius: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+}
+
+.submitBTN:hover{
+    background-color: lime;
+}
+
+
+.displayList{
+    list-style-type: none;
+}
+
+.objListElement{
+    font-family: 'Segoe UI';
+    background-color: #bbb;
+    padding: 1em;
+    border-style: solid;
+    border-color: coral;
+    border-radius: 20px;
+    color: black;
+    margin-bottom: 10px;
+}
+
+.tListElement{
+    font-family: 'Segoe UI';
+    background-color: #bbb;
+    padding: 1em;
+    border-style: solid;
+    border-color: coral;
+    border-radius: 20px;
+    color: black;
+    margin-bottom: 10px;
+}
+
+.buttonList > li{
+    display: inline-grid;
+}
+
+.buttonList{
+    list-style-type: none;
+    grid-column: 1/5;
+    justify-self: center;
+    padding: 0;
+    grid-row: 3
+}
+
+#transactionsList{
+    grid-column: 2/3;
+    padding-right: 2px;
+}
+
+.objListClass{
+    padding-left: 2px;
+}
+
+.formInput{
+    padding: 10px;
+    margin: 10px;
+    border: 1px #eee solid;
+    border-radius: 5%;
+    font-family: "Segoe UI";
+}
+
+.formInput:focus{
+    border-color: lightblue;
+    transition-duration: 0.1s;
+}
+
+progress{
+    background-color: lime;
+    width: 100%;
+}
+
+#percentage {
+   background-color: coral;
+  }
+
+#sidebar{
+    grid-template-rows: initial;
+    grid-area: sideBar  2/ 4 / 6 / end;
+    background-color: #eee;
+    padding-bottom: 200px;
+}
+
+.dateBTN{
+    padding: 1em;
+    background-color: #aaa;
+}
+
+
+

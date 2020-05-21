@@ -1,0 +1,6 @@
+-Implementare local storage //
+-Creare metodo "createList();" nel transactionsManager //
+-Implementare obiettivi /
+-Opzione di dare o meno fondi agli obiettivi alla creazione della t
+-Fixare bug obiettivi //
+-Implementare Features transManager nel objManager
