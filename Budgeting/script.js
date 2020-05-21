@@ -7,6 +7,8 @@ let objIdentifier = 1;
 
 transactionManager.display();
 
+fixedManager.sumFixesToBalance();
+
 
 const submitTransaction = () => {
     let value = Number(document.querySelector("#value").value);

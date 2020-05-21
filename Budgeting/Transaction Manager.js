@@ -33,9 +33,9 @@ class TransactionManager {
     }
 
     addTransaction(Transaction) {
-        this.allTransactions.push(Transaction);
+        this.allTransactions.unshift(Transaction);
 
-        this.refreshList(Transaction);
+        this.createList(Transaction);
 
         this.calculateBalance();
 
@@ -93,7 +93,7 @@ class TransactionManager {
 
     }
 
-    refreshList(t) {
+    addElementToList(t) {
 
         let li = document.createElement("li");
         li.setAttribute("id", `tra${this.allTransactions.length}`);
@@ -105,8 +105,10 @@ class TransactionManager {
     }
     
     createList(){
+        this.ul.innerHTML = "";
+
         this.allTransactions.forEach(t => {
-            this.refreshList(t);
+            this.addElementToList(t);
         })
     }
 

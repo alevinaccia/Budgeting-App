@@ -44,7 +44,7 @@
 
                     <input type="number" id="saveValue" class="formInput" placeholder="Ammount"><br>
 
-                    <input type="range" name="percentage" min="0" max="100" value="0" id="percentage"
+                    <input type="number" name="percentage" min="0" max="100" placeholder="Percentage" id="percentage"
                         class="formInput"><br>
 
                     <input type="text" placeholder="What are you saving for?" id="reason" class="formInput"
@@ -62,18 +62,23 @@
 
         <section id="sidebar">
             <ul>
-                <form>
-                    <label>Create a new Fixed</label>
+                <label><button onclick="fixedManager.displayForm()">Create a new Fixed</button></label><br>
+                <form id="fixedForm" style="visibility: hidden;">
+
                     <input type="text" placeholder="Fixed reason" id="fixedMsg"><br>
                     <input type="number" placeholder="Ammount" id="ammountValue"><br>
-                    <input type="button" class="dateBTN" id="dayBtn" onclick="fixedManager.selectDate('day')" value="Day">
-                    <input type="button" class="dateBTN" id="weekBtn" onclick="fixedManager.selectDate('week')" value="Week">
-                    <input type="button" class="dateBTN" id="monthBtn" onclick="fixedManager.selectDate('month')" value="Month"><br>
+                    <input type="button" class="dateBTN" id="dayBtn" onclick="fixedManager.selectDate('day')"
+                        value="Day">
+                    <input type="button" class="dateBTN" id="weekBtn" onclick="fixedManager.selectDate('week')"
+                        value="Week">
+                    <input type="button" class="dateBTN" id="monthBtn" onclick="fixedManager.selectDate('month')"
+                        value="Month"><br>
                     <input type="radio" name="type" id="entry">
                     <label for="Entry">Entry</label><br>
                     <input type="radio" name="type" id="exit">
                     <label for="Exit">Exit</label><br>
-                    <input type="button" class="submitBTN" onclick="fixedManager.convalidate()" value="Submit">
+                    <input type="button" class="submitBTN" onclick="fixedManager.addFixed()" value="Submit">
+                    
                 </form>
             </ul>
         </section>
@@ -83,8 +88,8 @@
     <script src="./formManager.js"></script>
     <script src="./Transaction Manager.js"></script>
     <script src="./fixed.js"></script>
-    
-    
+
+
     <script src="./script.js"></script>
 
 </body>

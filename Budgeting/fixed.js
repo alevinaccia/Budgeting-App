@@ -13,8 +13,13 @@ class Fixed {
 class FixedManager {
 
     constructor() {
+
+        //Entire form
+        this.form = document.querySelector("#fixedForm")
+
         this.ammountInput = document.querySelector("#ammountValue");
         this.entryInput = document.querySelector("#entry");
+        this.exitInput = document.querySelector("#exit");
         this.msgInput = document.querySelector("#fixedMsg")
 
         this.dayBtn = document.querySelector("#dayBtn");
@@ -26,8 +31,15 @@ class FixedManager {
         //flags
         this.dateFlag;
         this.dateType;
+        this.flag = true;
 
-        this.date = new Date()
+        this.date = new Date();
+
+        if (localStorage.getItem("fixedArray") != null) {
+
+            this.allFixed = JSON.parse(localStorage.getItem("fixedArray"));
+
+        }
 
     }
 
@@ -78,22 +90,23 @@ class FixedManager {
         }
     }
 
-    convalidate() {
+    addFixed() {
         let msg = this.msgInput.value;
-        let ammount = this.ammountInput.value;
+        let ammount = Number(this.ammountInput.value);
         let bool = this.entryInput.checked;
         let type;
 
         bool == true ? (type = "Entry") : (type = "Exit");
 
-        this.allFixed.push(new Fixed(this.dateType, ammount, type, this.dateFlag, msg));
+        this.allFixed.unshift(new Fixed(this.dateType, ammount, type, this.dateFlag, msg));
 
         this.date = undefined;
 
-        console.log( this.allFixed);
+        this.saveArray();
+        this.clearForm();
     }
 
-    addFixed() {
+    sumFixesToBalance() {
 
         let transactionsToAdd = []
 
@@ -104,26 +117,74 @@ class FixedManager {
             switch (fixed.date) {
 
                 case "Daily":
-                    if(1 == 1){
+                    if (this.date.getDay() > fixed.flag) {
                         fixed.type == "Entry" ? (bool = true) : (bool = false);
 
-                        console.log(bool, fixed.ammount, fixed.msg);
-
                         transactionsToAdd.push(new Transaction(bool, fixed.ammount, fixed.msg));
+
+                        fixed.flag++;
                     }
 
                     break;
 
                 case "Weekly":
 
+                    if (this.date.getDay() - fixed.flag >= 7) {
+                        fixed.type == "Entry" ? (bool = true) : (bool = false);
+
+                        transactionsToAdd.push(new Transaction(bool, Number(fixed.ammount), fixed.msg));
+
+                        fixed.flag += 7;
+                    }
+
                     break;
 
                 case "Monthly":
 
+                    if (this.date.getMonth() + 1 > fixed.flag) {
+                        fixed.type == "Entry" ? (bool = true) : (bool = false);
+
+                        transactionsToAdd.push(new Transaction(bool, fixed.ammount, fixed.msg));
+
+                        fixed.flag++;
+                    }
+
                     break;
             }
+
         })
 
         return transactionsToAdd;
+    }
+
+    saveArray() {
+        localStorage.setItem("fixedArray", JSON.stringify(this.allFixed))
+    }
+
+    clearForm() {
+        this.ammountInput.value = "";
+        this.entryInput.checked = false;
+        this.exitInput.checked = false;
+        this.msgInput.value = "";
+
+        this.dayBtn.setAttribute("style", "background-color:#aaa");
+        this.weekBtn.setAttribute("style", "background-color:#aaa");
+        this.monthBtn.setAttribute("style", "background-color:#aaa");
+    }
+
+    displayForm() {
+        if (this.flag == true) {
+
+            this.form.setAttribute("style", "visibility: hidden");
+
+            this.flag = !this.flag;
+        }
+
+        else {
+
+            this.form.setAttribute("style", "visibility: visible");
+
+            this.flag = !this.flag;
+        }
     }
 }

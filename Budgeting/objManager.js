@@ -30,7 +30,7 @@ class ObjManager {
     }
 
     addObj(obj) {
-        this.allObjectives.push(obj);
+        this.allObjectives.unshift(obj);
 
         this.saveList();
 
