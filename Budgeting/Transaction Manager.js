@@ -1,18 +1,35 @@
 class Transaction {
-    constructor(typeOf, value, msg) {
+    constructor(typeOf, value, msg, d, w, m) {
         this.typeOf = typeOf;
         this.value = value;
         this.msg = msg;
         this.actualValue = value;
+
+
+
+        // this.dayOfCreation = new Date().getDate();
+        // this.monthOfCreation = new Date().getUTCMonth() + 1;
+        // this.weekOfCreation = new Date().getWeek();
+
+        this.dayOfCreation = d;
+        this.monthOfCreation = m;
+        this.weekOfCreation = w;
     }
 }
 
 class TransactionManager {
     constructor() {
         this.allTransactions = [];
+        this.dayTransactions = [];
+        this.weekTransactions = [];
+        this.monthTransactions = [];
+
+
         this.outings = 0;
         this.entries = 0;
         this.balance = this.entries - this.outings;
+
+        this.date = new Date();
 
         this.entriesElement = document.querySelector("#entries");
         this.outElement = document.querySelector("#outings");
@@ -21,15 +38,42 @@ class TransactionManager {
 
         this.flag = true;
 
-        if(localStorage.getItem("tList") !=  null){
+        // if (localStorage.getItem("tList") != null) {
 
-            this.allTransactions = JSON.parse(localStorage.getItem("tList"));
+        //     this.allTransactions = JSON.parse(localStorage.getItem("tList"));
 
-            this.createList()
+        //     this.createList()
 
-            this.calculateBalance();
+        //     this.calculateBalance();
 
+        // }
+
+        //ONLY FOR TEST
+
+        for (let i = 1; i < 10; i++) {
+            let bool = Math.random() > 0.5;
+            let value = Math.floor(Math.random() * 100);
+
+            let d, w, m;
+
+            if (Math.random() > 0.8) {
+                d = new Date().getDate();
+                w = new Date().getWeek();
+                m = new Date().getMonth() + 1;
+            } else {
+                d = Math.floor(Math.random() * 30);
+                w = Math.floor(Math.random() * 52);
+                m = Math.floor(Math.random() * 12);
+            }
+
+            this.allTransactions.push(new Transaction(bool, value, `T${i}`, d, w, m));
         }
+
+        this.createList();
+        this.calculateBalance();
+
+
+
     }
 
     addTransaction(Transaction) {
@@ -42,7 +86,7 @@ class TransactionManager {
         this.saveList();
     }
 
-    removeFromBalance(bool, value){
+    removeFromBalance(bool, value) {
 
         if (bool == true) {
 
@@ -68,20 +112,72 @@ class TransactionManager {
         this.balance = 0;
     }
 
-    calculateBalance() {
+    calculateBalance(arr) {
         if (this.entries != 0 || this.outings != 0) {
             this.resetValues();
         }
 
-        this.allTransactions.forEach(t => {
-            if (t.typeOf == true) {
-                this.entries += t.actualValue;
-            } else {
-                this.outings += t.actualValue;
-            }
-        });
+        switch (arr) {
+
+            case "day":
+
+                console.log("Im here")
+
+                this.dayTransactions.forEach(t => {
+
+                    if (t.typeOf == true) {
+                        this.entries += t.actualValue;
+                    } else {
+                        this.outings += t.actualValue;
+                    }
+                });
+
+
+                break;
+
+            case "week":
+
+                this.weekTransactions.forEach(t => {
+                    if (t.typeOf == true) {
+                        this.entries += t.actualValue;
+                    } else {
+                        this.outings += t.actualValue;
+                    }
+                });
+
+                break;
+
+            case "month":
+
+                this.monthTransactions.forEach(t => {
+                    if (t.typeOf == true) {
+                        this.entries += t.actualValue;
+                    } else {
+                        this.outings += t.actualValue;
+                    }
+                });
+
+                break;
+
+            default:
+
+                this.allTransactions.forEach(t => {
+                    if (t.typeOf == true) {
+                        this.entries += t.actualValue;
+                    } else {
+                        this.outings += t.actualValue;
+                    }
+                });
+
+                break;
+
+
+        }
+
 
         this.balance = this.entries - this.outings;
+
+        this.display();
 
     }
 
@@ -103,17 +199,48 @@ class TransactionManager {
         this.ul.appendChild(li);
 
     }
-    
-    createList(){
+
+    createList(arr) {
         this.ul.innerHTML = "";
 
-        this.allTransactions.forEach(t => {
-            this.addElementToList(t);
-        })
+        switch (arr) {
+
+            case "day":
+
+                this.dayTransactions.forEach(t => {
+                    this.addElementToList(t);
+                })
+
+                break;
+
+            case "week":
+
+                this.weekTransactions.forEach(t => {
+                    this.addElementToList(t);
+                })
+
+                break;
+
+            case "month":
+
+                this.monthTransactions.forEach(t => {
+                    this.addElementToList(t);
+                })
+
+                break;
+
+            default:
+
+                this.allTransactions.forEach(t => {
+                    this.addElementToList(t);
+                })
+
+        }
+
     }
 
-    saveList(){
-        localStorage.setItem("tList",JSON.stringify(this.allTransactions))
+    saveList() {
+        localStorage.setItem("tList", JSON.stringify(this.allTransactions))
     }
 
     displayForm() {
@@ -142,5 +269,41 @@ class TransactionManager {
 
     }
 
+    swapTransactions(period) {
+        switch (period) {
+            case "day":
+                this.dayTransactions = this.allTransactions.filter(transaction => {
+                    return transaction.dayOfCreation == new Date().getDate() && transaction.monthOfCreation == new Date().getMonth() + 1;
+                })
+
+                console.log(this.dayTransactions);
+
+                break;
+
+            case "week":
+                this.weekTransactions = this.allTransactions.filter(transaction => {
+                    return transaction.weekOfCreation == new Date().getWeek();
+                })
+
+                console.log(this.weekTransactions);
+
+                break;
+
+            case "month":
+                this.monthTransactions = this.allTransactions.filter(transaction => {
+                    return transaction.monthOfCreation == new Date().getMonth() + 1;
+                })
+
+                console.log(this.monthTransactions);
+
+                break;
+
+        }
+
+        this.createList(period);
+
+        this.calculateBalance(period);
+
+    }
 
 }

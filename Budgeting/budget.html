@@ -6,7 +6,12 @@
 </head>
 
 <body>
-    <h1>Budgeting App</h1>
+    <h1>Budgeting App
+        <button onclick="transactionManager.swapTransactions('day')">Day</button>
+        <button onclick="transactionManager.swapTransactions('week')">Week</button>
+        <button onclick="transactionManager.swapTransactions('month')">Month</button>
+        <button onclick="transactionManager.swapTransactions()">Month</button>
+    </h1>
     <div id="mainContainer">
         <h2 id="balance">Balance</h2>
         <ul id="inAndOutList">
@@ -78,11 +83,12 @@
                     <input type="radio" name="type" id="exit">
                     <label for="Exit">Exit</label><br>
                     <input type="button" class="submitBTN" onclick="fixedManager.addFixed()" value="Submit">
-                    
+
                 </form>
             </ul>
         </section>
     </div>
+    <script src="./Date.js"></script>
     <script src="./sideBarManager.js"></script>
     <script src="./objManager.js"></script>
     <script src="./formManager.js"></script>

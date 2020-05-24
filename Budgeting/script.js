@@ -23,7 +23,7 @@ const submitTransaction = () => {
 
     let partToRemove = objManager.calculateProgress(t.value);
 
-    transactionManager.removeFromBalance(true, partToRemove); 
+    transactionManager.removeFromBalance(true, partToRemove);
 
     t.actualValue -= partToRemove;
 

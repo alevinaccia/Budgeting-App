@@ -31,7 +31,7 @@ class FixedManager {
         //flags
         this.dateFlag;
         this.dateType;
-        this.flag = true;
+        this.flag = false;
 
         this.date = new Date();
 
