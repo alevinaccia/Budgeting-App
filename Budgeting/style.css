@@ -153,14 +153,21 @@ progress{
 
 #sidebar{
     grid-template-rows: initial;
-    grid-area: sideBar  2/ 4 / 6 / end;
+    grid-area: sideBar  2/ 4 / 6 / 4;
     background-color: #eee;
-    padding-bottom: 200px;
 }
 
 .dateBTN{
     padding: 1em;
     background-color: #aaa;
+}
+
+.periodBTN{
+    padding: 10px;
+}
+
+#lft{
+    margin-left: 31%;
 }
 
 

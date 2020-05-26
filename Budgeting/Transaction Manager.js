@@ -1,19 +1,13 @@
 class Transaction {
-    constructor(typeOf, value, msg, d, w, m) {
+    constructor(typeOf, value, msg, date) {
         this.typeOf = typeOf;
         this.value = value;
         this.msg = msg;
         this.actualValue = value;
 
-
-
-        // this.dayOfCreation = new Date().getDate();
-        // this.monthOfCreation = new Date().getUTCMonth() + 1;
-        // this.weekOfCreation = new Date().getWeek();
-
-        this.dayOfCreation = d;
-        this.monthOfCreation = m;
-        this.weekOfCreation = w;
+        this.dayOfCreation = date.getDate();
+        this.monthOfCreation = date.getUTCMonth() + 1;
+        this.weekOfCreation = date.getWeek();
     }
 }
 
@@ -38,41 +32,41 @@ class TransactionManager {
 
         this.flag = true;
 
-        // if (localStorage.getItem("tList") != null) {
+        if (localStorage.getItem("tList") != null) {
 
-        //     this.allTransactions = JSON.parse(localStorage.getItem("tList"));
+            this.allTransactions = JSON.parse(localStorage.getItem("tList"));
 
-        //     this.createList()
+            this.createList()
 
-        //     this.calculateBalance();
+            this.calculateBalance();
 
-        // }
+        }
 
         //ONLY FOR TEST
 
-        for (let i = 1; i < 10; i++) {
-            let bool = Math.random() > 0.5;
-            let value = Math.floor(Math.random() * 100);
+        // for (let i = 1; i < 10; i++) {
+        //     let bool = Math.random() > 0.5;
+        //     let value = Math.floor(Math.random() * 100);
 
-            let d, w, m;
+        //     let d, w, m;
 
-            if (Math.random() > 0.8) {
-                d = new Date().getDate();
-                w = new Date().getWeek();
-                m = new Date().getMonth() + 1;
-            } else {
-                d = Math.floor(Math.random() * 30);
-                w = Math.floor(Math.random() * 52);
-                m = Math.floor(Math.random() * 12);
-            }
+        //     if (Math.random() > 0.8) {
+        //         d = new Date().getDate();
+        //         w = new Date().getWeek();
+        //         m = new Date().getMonth() + 1;
+        //     } else {
+        //         d = Math.floor(Math.random() * 30);
+        //         w = Math.floor(Math.random() * 52);
+        //         m = Math.floor(Math.random() * 12);
+        //     }
 
-            this.allTransactions.push(new Transaction(bool, value, `T${i}`, d, w, m));
-        }
+        //     this.allTransactions.push(new Transaction(bool, value, `T${i}`, d, w, m));
+        // }
 
-        this.createList();
-        this.calculateBalance();
+        // this.createList();
+        // this.calculateBalance();
 
-
+        //ONLY FOR TEST
 
     }
 
@@ -237,6 +231,8 @@ class TransactionManager {
 
         }
 
+        this.display();
+
     }
 
     saveList() {
@@ -276,8 +272,6 @@ class TransactionManager {
                     return transaction.dayOfCreation == new Date().getDate() && transaction.monthOfCreation == new Date().getMonth() + 1;
                 })
 
-                console.log(this.dayTransactions);
-
                 break;
 
             case "week":
@@ -285,7 +279,7 @@ class TransactionManager {
                     return transaction.weekOfCreation == new Date().getWeek();
                 })
 
-                console.log(this.weekTransactions);
+                console.log(this.allTransactions);
 
                 break;
 

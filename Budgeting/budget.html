@@ -7,10 +7,10 @@
 
 <body>
     <h1>Budgeting App
-        <button onclick="transactionManager.swapTransactions('day')">Day</button>
-        <button onclick="transactionManager.swapTransactions('week')">Week</button>
-        <button onclick="transactionManager.swapTransactions('month')">Month</button>
-        <button onclick="transactionManager.swapTransactions()">Month</button>
+        <button class ="periodBTN" id="lft" onclick="transactionManager.swapTransactions('day')">Day</button>
+        <button class ="periodBTN" onclick="transactionManager.swapTransactions('week')">Week</button>
+        <button class ="periodBTN" onclick="transactionManager.swapTransactions('month')">Month</button>
+        <button class ="periodBTN" onclick="transactionManager.swapTransactions()">All</button>
     </h1>
     <div id="mainContainer">
         <h2 id="balance">Balance</h2>
@@ -91,7 +91,6 @@
     <script src="./Date.js"></script>
     <script src="./sideBarManager.js"></script>
     <script src="./objManager.js"></script>
-    <script src="./formManager.js"></script>
     <script src="./Transaction Manager.js"></script>
     <script src="./fixed.js"></script>
 

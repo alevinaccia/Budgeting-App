@@ -2,6 +2,7 @@ const transactionManager = new TransactionManager;
 const objManager = new ObjManager;
 const sideBarManager = new SideBarManager;
 const fixedManager = new FixedManager;
+const date = new Date();
 let objIdentifier = 1;
 
 
@@ -12,14 +13,12 @@ fixedManager.sumFixesToBalance();
 
 const submitTransaction = () => {
     let value = Number(document.querySelector("#value").value);
+
     let msg = document.querySelector("#msg").value;
 
     let typeOf = document.querySelector("#earn").checked;
-    let bool;
 
-    typeOf === true ? (bool = true) : (bool = false);
-
-    t = new Transaction(bool, value, msg);
+    t = new Transaction(typeOf, value, msg, date);
 
     let partToRemove = objManager.calculateProgress(t.value);
 
@@ -29,11 +28,7 @@ const submitTransaction = () => {
 
     transactionManager.displayForm();
 
-    transactionManager.clearForm();
-
     transactionManager.addTransaction(t);
-
-    transactionManager.display();
 
 }
 
@@ -50,10 +45,6 @@ const submitObj = () => {
     objManager.totalPercentage += percentage;
 
     objManager.addObj(obj);
-
-    objManager.displayForm(false);
-
-    objManager.clearForm()
 
 }
 

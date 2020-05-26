@@ -18,7 +18,10 @@ class ObjManager {
         this.reasonElement = document.querySelector("#reason");
         this.dateElement = document.querySelector("#date");
         this.totalPercentage = 0;
-        this.flag = true;
+
+        this.ul = document.querySelector("#objList");
+
+        this.flag = false;
 
         if (localStorage.getItem("objList") != null) {
 
@@ -27,30 +30,34 @@ class ObjManager {
             this.createList()
 
         }
+
     }
 
     addObj(obj) {
         this.allObjectives.unshift(obj);
 
-        this.saveList();
+        this.createList(obj);
 
-        this.refreshList(obj);
+        this.displayForm();
+
+        this.saveArray();
     }
 
-    refreshList(obj) {
+    addElementToList(obj) {
 
-        let ul = document.querySelector("#objList");
         let li = document.createElement("li");
         li.setAttribute("class", "objListElement");
-        li.setAttribute("id", `obj${this.allObjectives.length}`);
+        li.setAttribute("id", `obj${obj.id}`);
         li.innerText = `${obj.reason} ${obj.ammount}€ ${Number(obj.actualPercentage.toFixed(1))}%`;
         let progress = document.createElement("progress");
         progress.setAttribute("max", "100");
         progress.setAttribute("value", `${obj.actualPercentage}`);
-        progress.setAttribute("id", `progress${this.allObjectives.length}`);
+        progress.setAttribute("id", `progress${obj.id}`);
         li.appendChild(progress);
 
-        ul.appendChild(li);
+        this.ul.appendChild(li);
+
+        if(this.flag != true){this.displayForm()}
 
     }
 
@@ -106,15 +113,17 @@ class ObjManager {
 
         })
 
-        this.saveList();
+        this.saveArray();
 
         return partToRemove;
 
     }
 
     createList() {
+        this.ul.innerHTML = "";
+
         this.allObjectives.forEach(obj => {
-            this.refreshList(obj);
+            this.addElementToList(obj);
         })
     }
 
@@ -122,22 +131,22 @@ class ObjManager {
 
         if (this.flag == true) {
 
-            document.querySelector(".addObj").setAttribute("style", "visibility : visible;")
+            document.querySelector(".addObj").setAttribute("style", "visibility : visible;");
 
-            this.flag = !this.flag
+            this.flag = !this.flag;
 
         } else {
 
-            document.querySelector(".addObj").setAttribute("style", "visibility : hidden;")
+            document.querySelector(".addObj").setAttribute("style", "visibility : hidden;");
 
-            this.clearForm();
-
-            this.flag = !this.flag
+            this.flag = !this.flag;
         }
+
+        this.clearForm();
     }
 
-    saveList() {
-        localStorage.setItem("objList", JSON.stringify(this.allObjectives))
+    saveArray() {
+        localStorage.setItem("objList", JSON.stringify(this.allObjectives));
     }
 
     clearForm() {
