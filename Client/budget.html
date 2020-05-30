@@ -1,0 +1,104 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="./style.css">
+    <title>My Website</title>
+</head>
+
+<body>
+    <h1>Budgeting App
+        <button class="periodBTN" id="lft" onclick="transactionManager.swapTransactions('day')">Day</button>
+        <button class="periodBTN" onclick="transactionManager.swapTransactions('week')">Week</button>
+        <button class="periodBTN" onclick="transactionManager.swapTransactions('month')">Month</button>
+        <button class="periodBTN" onclick="transactionManager.swapTransactions()">All</button>
+    </h1>
+    <div id="mainContainer">
+        <h2 id="balance">Balance</h2>
+        <ul id="inAndOutList">
+            <li id="entries" class="inAndOutListElement"></li>
+            <li id="outings" class="inAndOutListElement"></li>
+        </ul>
+        <ul class="buttonList">
+            <!--Add Transaction-->
+            <li>
+                <button class="addBTN" onclick="transactionManager.displayForm()">Add transaction</button>
+
+                <form class="addForm" id="transactionForm">
+
+                    <input type="number" min="0" max="99999" id="ammount" class="formInput" placeholder="Value"><br>
+
+                    <input type="radio" name="type" value="true" id="earn">
+                    <label for="Earn">Earning</label><br>
+                    <input type="radio" name="type" value=false id="out">
+                    <label for="Out">Outing</label><br>
+
+                    <input type="text" placeholder="Reason" id="msg" class="formInput">
+
+                    <button>Submit</button>
+
+                    <ul id="transactionList"></ul>
+
+
+                </form>
+            </li>
+            <!--Add Goal-->
+            <li>
+                <button class="addBTN" onclick="goalManager.displayForm()">Add Goal</button>
+
+                <form class="addGoal" id="goalForm">
+
+                    <input type="number" id="saveValue" class="formInput" placeholder="Ammount"><br>
+
+                    <input type="number" name="percentage" min="0" max="100" placeholder="Percentage" id="percentage"
+                        class="formInput"><br>
+
+                    <input type="text" placeholder="What are you saving for?" id="reason" class="formInput"
+                        placeholder="Reason">
+
+                    <button>Submit</button>
+
+                </form>
+            </li>
+        </ul>
+
+        <ul id="transactionsList" class="displayList"></ul>
+
+        <ul id="goalList" class="displayList goalListClass"></ul>
+        <!--
+        <section id="sidebar">
+            <ul>
+                <label><button onclick="fixedManager.displayForm()">Create a new Fixed</button></label><br>
+                <form id="fixedForm" style="visibility: hidden;">
+
+                    <input type="text" placeholder="Fixed reason" id="fixedMsg"><br>
+                    <input type="number" placeholder="Ammount" id="ammountValue"><br>
+                    <input type="button" class="dateBTN" id="dayBtn" onclick="fixedManager.selectDate('day')"
+                        value="Day">
+                    <input type="button" class="dateBTN" id="weekBtn" onclick="fixedManager.selectDate('week')"
+                        value="Week">
+                    <input type="button" class="dateBTN" id="monthBtn" onclick="fixedManager.selectDate('month')"
+                        value="Month"><br>
+                    <input type="radio" name="type" id="entry">
+                    <label for="Entry">Entry</label><br>
+                    <input type="radio" name="type" id="exit">
+                    <label for="Exit">Exit</label><br>
+                    <input type="button" class="submitBTN" onclick="fixedManager.addFixed()" value="Submit">
+
+                </form>
+            </ul>
+        </section>
+
+    -->
+    </div>
+
+
+    <script src="./Date.js"></script>
+    <script src="./sideBarManager.js"></script>
+    <script src="./goalManager.js"></script>
+    <script src="./Transaction Manager.js"></script>
+    <script src="./fixed.js"></script>
+    <script src="./script.js"></script>
+
+</body>
+
+</html>
