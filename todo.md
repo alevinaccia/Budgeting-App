@@ -1,9 +1,0 @@
--Implementare local storage //
--Creare metodo "createList();" nel transactionsManager //
--Implementare obiettivi /
--Opzione di dare o meno fondi agli obiettivi alla creazione della t
--Fixare bug obiettivi //
--Implementare Features transManager nel objManager//
--Implementare funzione che verifica gli input inseriti, dando eventuali errori.
--Rendere dinamico il max input dell'input "Percentage" sotto "Add Goal"
--Creare Sezione gestione dei fixed (Visualizzazione fixed attivi, modifica e rimozione)
