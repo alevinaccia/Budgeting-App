@@ -46,15 +46,12 @@ transactionManager.display();
 fixedManager.sumFixesToBalance();
 
 transactionForm.addEventListener('submit', () => {
-
     event.preventDefault();
-
     let value = Number(transactionForm.ammount.value);
     let msg = transactionForm.msg.value;
     let typeOf = transactionForm.type.value;
     let name = transactionForm.category.value;
-
-    let cat = allCat.find(e => e.name == name);
+    let cat = allCat.find(e => e.name == name) || null;
 
     switch (typeOf) {
         case (""):

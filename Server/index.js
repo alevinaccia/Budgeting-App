@@ -1,8 +1,5 @@
-
 const express = require('express');
-
 const cors = require('cors');
-
 const app = express();
 
 //Temp
@@ -70,6 +67,12 @@ app.post('/addCategory', (req , res) => {
 app.post('/addGoal', (req, res) => {
     allGoals.unshift(req.body);
     res.json(allGoals);
+})
+
+app.delete('/removeCategory', (req,res) => {
+    let element = allCategories.find(id => id = req.body.id);
+    allCategories.splice(allCategories.indexOf(element), 1);
+    res.json(allCategories);
 })
 
 app.listen(5000, () => {

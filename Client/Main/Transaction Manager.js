@@ -83,7 +83,11 @@ class TransactionManager {
         let li = document.createElement("li");
         li.setAttribute("id", `tra${this.allTransactions.length}`);
         li.setAttribute("class", "tListElement");
-        li.style.borderColor = t.category.color;
+        if(t.category == null){
+            li.style.borderColor = "rgb(255, 255, 255)";    
+        }else{
+            li.style.borderColor = t.category.color;
+        }
         li.innerText = `${t.msg} ${t.value}€`;
 
         this.ul.appendChild(li);
