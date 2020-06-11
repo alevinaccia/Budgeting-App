@@ -34,13 +34,6 @@ class FixedManager {
         this.flag = false;
 
         this.date = new Date();
-
-        if (localStorage.getItem("fixedArray") != null) {
-
-            this.allFixed = JSON.parse(localStorage.getItem("fixedArray"));
-
-        }
-
     }
 
     selectDate(date) {
@@ -155,10 +148,6 @@ class FixedManager {
         })
 
         return transactionsToAdd;
-    }
-
-    saveArray() {
-        localStorage.setItem("fixedArray", JSON.stringify(this.allFixed))
     }
 
     clearForm() {

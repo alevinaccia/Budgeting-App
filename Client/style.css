@@ -17,7 +17,9 @@ body{
     border-style: solid;
     padding: 7px;
     font-size: 20px;
-    border-radius: 10px
+    border-radius: 10px;
+
+transition-duration: 0.2s;
 }
 
 .toolbar:hover{
@@ -27,12 +29,10 @@ body{
 #mainContainer{
     padding-top: 0.1em;
     background-color: lightgray;
-
     display: grid;
     grid-template-columns: repeat(4,1fr);
 }
-
-
+ 
 body{
     background-color: lightgray;
 }
@@ -42,13 +42,13 @@ h2{
     font-size: 3em; 
     grid-column: 1/5;
     justify-self: center;
+    text-align: center;
 }
 
 #inAndOutList{
     list-style-type: none;
     grid-column: 1/5;
     justify-self: center;
-    
 }
 
 .inAndOutListElement{

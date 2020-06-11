@@ -1,4 +1,4 @@
-class Transaction {
+export class Transaction {
     constructor(typeOf, value, msg, date, category) {
         this.typeOf = typeOf;
         this.value = value;
@@ -9,7 +9,7 @@ class Transaction {
     }
 }
 
-class TransactionManager {
+export class TransactionManager {
     constructor() {
         this.allTransactions = [];
         this.dayTransactions = [];
@@ -30,7 +30,6 @@ class TransactionManager {
         this.form = document.querySelector("#transactionForm");
 
         this.flag = false;
-
     }
 
     removeFromBalance(bool, value) {
@@ -80,15 +79,18 @@ class TransactionManager {
     }
 
     addElementToList(t) {
+        let  c;
         let li = document.createElement("li");
         li.setAttribute("id", `tra${this.allTransactions.length}`);
-        li.setAttribute("class", "tListElement");
+        li.setAttribute("class", "transactionListElement");
         if(t.category == null){
             li.style.borderColor = "rgb(255, 255, 255)";    
         }else{
             li.style.borderColor = t.category.color;
         }
-        li.innerText = `${t.msg} ${t.value}€`;
+        t.typeOf == true ? (c = "income") : (c = "expense");
+
+        li.innerHTML = `${t.msg} <span class=${c}>${t.value}€</span>`;
 
         this.ul.appendChild(li);
 
@@ -104,27 +106,7 @@ class TransactionManager {
 
         this.display();
 
-        this.displayForm();
     }
-
-    displayForm() {
-
-        if (this.flag == true) {
-
-            document.querySelector("#transactionForm").style.display = ""
-
-            this.flag = !this.flag
-
-        } else {
-
-            document.querySelector(".addForm").style.display = "none"
-
-            this.flag = !this.flag
-        }
-
-        this.form.reset();
-    }
-
 
     swapTransactions(period) {
         switch (period) {

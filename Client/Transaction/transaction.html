@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../newStyle.css">
+    <title>Budgeting App</title>
+</head>
+
+<body>
+    <header>
+        <h1><a href="../Main/budget.html" class="return">Budgeting App</a></h1>
+        <nav>
+            <ul>
+                <li><a class="toolbar active">Transactions</a></li>
+                <li><a class="toolbar" href="../Category/categoryManager.html">Categories</a></li>
+            </ul>
+        </nav>
+    </header>
+    <form class="addForm" id="transactionForm">
+        <input type="number" min="0" max="99999" id="ammount" class="formInput" placeholder="Value"><br>
+        <input type="radio" name="type" value="true" id="earn">
+        <label for="Earn">Earning</label><br>
+        <input type="radio" name="type" value=false id="out">
+        <label for="Out">Outing</label><br>
+        <input type="text" placeholder="Reason" id="msg" class="formInput"><br>
+        <label for="category">Category</label>
+        <select name="category" id="category">
+            <option value="default">None</option>
+        </select><br>
+        <button>Submit</button>
+        <ul id="transactionList"></ul>
+    </form>
+
+    <p class="income ui-response" id="succesfullMessage" style="display: none;">Transaction added!</p>
+    <p class="expense ui-response"id="failMessage" style="display: none;">All fields are required!</p>
+</body>
+    <script type="module" src="./transaction.js"></script>
+</html>

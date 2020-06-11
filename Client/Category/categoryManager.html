@@ -1,13 +1,21 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../newStyle.css">
     <title>My Website</title>
 </head>
 
 <body>
-    <h1><a href="../main/budget.html">Budgeting App</a></h1>
-    
+    <header>
+        <h1><a href="../Main/budget.html" class="return">Budgeting App</a></h1>
+        <nav>
+            <ul>
+                <li><a class="toolbar" href="../Transaction/transaction.html">Transactions</a></li>
+                <li><a class="toolbar active" href="../Category/categoryManager.html">Categories</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <div id="maincontainer">
         <h2>Categories</h2>
         <form action="newCategory" id="categoryForm">

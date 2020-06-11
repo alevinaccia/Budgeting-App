@@ -1,15 +1,8 @@
+import { URL } from '../noname.js'
+import {Transaction, TransactionManager} from './Transaction Manager.js'
+
 const transactionManager = new TransactionManager;
-const goalManager = new GoalManager;
-const sideBarManager = new SideBarManager;
-const fixedManager = new FixedManager;
-const date = new Date();
-let allCat;
-
-
-const transactionForm = document.querySelector("#transactionForm");
-const goalForm = document.querySelector("#goalForm");
-
-const URL = 'http://localhost:5000';
+//const goalManager = new GoalManager;
 
 fetch(URL + '/getTransactions', {
     method: 'GET',
@@ -18,101 +11,37 @@ fetch(URL + '/getTransactions', {
         transactionManager.createList(allTransactions);
     })
 
-fetch(URL + '/getGoals', {
-    method: 'GET',
-}).then(response => response.json())
-    .then(allGoals => {
-        goalManager.createList(allGoals);
-    })
-
-fetch(URL + '/getCategories', {
-    method: 'GET',
-}).then(res => res.json())
-    .then(cat => {
-        allCat = cat;
-        cat.forEach(category => {
-            let option = document.createElement("option");
-            option.setAttribute("value", category.name);
-            option.innerHTML = category.name;
-            option.appendChild
-            transactionForm.category.appendChild(option)
-        });
-    })
+// fetch(URL + '/getGoals', {
+//     method: 'GET',
+// }).then(response => response.json())
+//     .then(allGoals => {
+//         goalManager.createList(allGoals);
+//     })
 
 let goalID = 1;
 
-transactionManager.display();
+// goalForm.addEventListener('submit', () => {
 
-fixedManager.sumFixesToBalance();
+//     event.preventDefault();
 
-transactionForm.addEventListener('submit', () => {
-    event.preventDefault();
-    let value = Number(transactionForm.ammount.value);
-    let msg = transactionForm.msg.value;
-    let typeOf = transactionForm.type.value;
-    let name = transactionForm.category.value;
-    let cat = allCat.find(e => e.name == name) || null;
+//     let saveValue = Number(document.querySelector("#saveValue").value);
+//     let percentage = document.querySelector("#percentage").value;
+//     let reason = document.querySelector("#reason").value;
 
-    switch (typeOf) {
-        case (""):
-            typeOf = null;
-            break;
+//     let goal = new Goal(saveValue, reason, percentage, goalID);
 
-        case ("true"):
-            typeOf = true;
-            break;
+//     goalID++;
 
-        case ("false"):
-            typeOf = false;
-            break;
-    }
+//     goalManager.totalPercentage += percentage;
 
-    t = new Transaction(typeOf, value, msg, date, cat);
-
-    let partToRemove = goalManager.calculateProgress(t.value);
-
-    transactionManager.removeFromBalance(true, partToRemove);
-
-    t.actualValue -= partToRemove;
-
-    fetch(URL + '/addTransaction', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(t)
-    }).then(response => response.json())
-        .then(transactions => {
-            if (transactions != "Fields are required") {
-                transactionManager.createList(transactions);
-            } else {
-                console.log("Fields are required");
-            }
-        })
-});
-
-goalForm.addEventListener('submit', () => {
-
-    event.preventDefault();
-
-    let saveValue = Number(document.querySelector("#saveValue").value);
-    let percentage = document.querySelector("#percentage").value;
-    let reason = document.querySelector("#reason").value;
-
-    let goal = new Goal(saveValue, reason, percentage, goalID);
-
-    goalID++;
-
-    goalManager.totalPercentage += percentage;
-
-    fetch(URL + '/addGoal', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(goal)
-    }).then(response => response.json())
-        .then(Goals => {
-            goalManager.createList(Goals);
-        })
-})
+//     fetch(URL + '/addGoal', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(goal)
+//     }).then(response => response.json())
+//         .then(Goals => {
+//             goalManager.createList(Goals);
+//         })
+// })

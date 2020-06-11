@@ -5,9 +5,28 @@ class Category {
         this.id = id;
     }
 }
+
+
+const createList = (arr) => {
+    div.innerHTML = "";
+    arr.forEach(category => {
+        let p = document.createElement("p");
+        p.innerText = category.name;
+        p.style.borderStyle = "solid";
+        p.style.borderColor = category.color;
+        p.setAttribute("class", "categories");
+        p.setAttribute("id", `cat${category.id}`);
+        let button = document.createElement("button");
+        button.setAttribute("onclick", `remove(${p.id})`);
+        button.innerText = "remove";
+        p.appendChild(button);
+        div.appendChild(p);
+    })
+}
+
 const URL = "http://localhost:5000"
 const div = document.querySelector("#categoriesContainer");
-const form = document.querySelector("#categoryform");
+const form = document.querySelector("#categoryForm");
 
 let idIndex = 0;
 
@@ -34,23 +53,6 @@ form.addEventListener('submit', () => {
     idIndex++;
     form.reset();
 })
-
-const createList = (arr) => {
-    div.innerHTML = "";
-    arr.forEach(category => {
-        let p = document.createElement("p");
-        p.innerText = category.name;
-        p.style.borderStyle = "solid";
-        p.style.borderColor = category.color;
-        p.setAttribute("class", "categories");
-        p.setAttribute("id", `cat${category.id}`);
-        let button = document.createElement("button");
-        button.setAttribute("onclick", `remove(${p.id})`);
-        button.innerText = "remove";
-        p.appendChild(button);
-        div.appendChild(p);
-    })
-}
 
 const remove = (id) => {
     console.log(id.id)
