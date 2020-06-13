@@ -86,6 +86,10 @@ form button{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+#color{
+    padding: 0;
+}
+
 .return:hover{
     color: rgb(200,200,200);
     transition-duration: 0.2s;
@@ -121,6 +125,24 @@ form button{
      display: inline-block;
      margin: 0 0.5em;
      font-size: 2em;
+}
+
+.categories{
+    font-size: 2em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    align-items: center;
+    color: rgb(200,200,200);
+    margin: 4% 30%;
+    justify-content: center;
+    border: solid 5px;
+    border-radius: 1em;
+}
+
+.categories button{
+    margin: 1em;
+    padding: 0.25em;
+    font-size: 1em;
 }
  
 .expense{

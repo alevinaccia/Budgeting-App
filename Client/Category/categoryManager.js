@@ -18,7 +18,7 @@ const createList = (arr) => {
         p.setAttribute("id", `cat${category.id}`);
         let button = document.createElement("button");
         button.setAttribute("onclick", `remove(${p.id})`);
-        button.innerText = "remove";
+        button.innerText = "delete";
         p.appendChild(button);
         div.appendChild(p);
     })
