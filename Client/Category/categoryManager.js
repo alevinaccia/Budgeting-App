@@ -55,7 +55,6 @@ form.addEventListener('submit', () => {
 })
 
 const remove = (id) => {
-    console.log(id.id)
     fetch(URL + "/removeCategory", {
         method : "DELETE",
         headers: {

@@ -1,11 +1,12 @@
 export class Transaction {
-    constructor(typeOf, value, msg, date, category) {
+    constructor(typeOf, value, msg, date, category, id) {
         this.typeOf = typeOf;
         this.value = value;
         this.msg = msg;
         this.actualValue = value;
         this.date = date;
         this.category = category;
+        this.id = id;
     }
 }
 
@@ -79,15 +80,16 @@ export class TransactionManager {
     }
 
     addElementToList(t) {
-        let  c;
+        let c;
         let li = document.createElement("li");
-        li.setAttribute("id", `tra${this.allTransactions.length}`);
+        li.setAttribute("id", `t${t.id}`);
         li.setAttribute("class", "transactionListElement");
-        if(t.category == null){
-            li.style.borderColor = "rgb(255, 255, 255)";    
-        }else{
+        if (t.category == null) {
+            li.style.borderColor = "rgb(255, 255, 255)";
+        } else {
             li.style.borderColor = t.category.color;
         }
+        
         t.typeOf == true ? (c = "income") : (c = "expense");
 
         li.innerHTML = `${t.msg} <span class=${c}>${t.value}€</span>`;
@@ -103,9 +105,11 @@ export class TransactionManager {
             this.addElementToList(transaction);
         })
         this.calculateBalance(arr);
-
         this.display();
+    }
 
+    deleteTransaction(id) {
+        console.log(id);
     }
 
     swapTransactions(period) {

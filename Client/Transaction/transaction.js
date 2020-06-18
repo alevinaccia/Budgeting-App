@@ -4,6 +4,7 @@ import { Transaction } from "../Main/Transaction Manager.js"
 const transactionForm = document.querySelector("#transactionForm");
 let allCat;
 let date = new Date();
+let idIndex;
 
 let succesParagraph = document.querySelector("#succesfullMessage");
 let failParagraph = document.querySelector("#failMessage");
@@ -11,53 +12,56 @@ let failParagraph = document.querySelector("#failMessage");
 
 //Poter inviare dati per aggiungere transizioni*
 transactionForm.addEventListener('submit', () => {
-        event.preventDefault();
-        let value = Number(transactionForm.ammount.value);
-        let msg = transactionForm.msg.value;
-        let typeOf = transactionForm.type.value;
-        let name = transactionForm.category.value;
-        let cat = allCat.find(e => e.name == name) || null;
+    event.preventDefault();
+    let value = Number(transactionForm.ammount.value);
+    let msg = transactionForm.msg.value;
+    let typeOf = transactionForm.type.value;
+    let name = transactionForm.category.value;
+    let cat;
     
-        switch (typeOf) {
-            case (""):
-                typeOf = null;
-                break;
-    
-            case ("true"):
-                typeOf = true;
-                break;
-    
-            case ("false"):
-                typeOf = false;
-                break;
+    if(cat) {cat = allCat.find(e => e.name == name) || null;}
+
+    switch (typeOf) {
+        case (""):
+            typeOf = null;
+            break;
+
+        case ("true"):
+            typeOf = true;
+            break;
+
+        case ("false"):
+            typeOf = false;
+            break;
+    }
+
+    let t = new Transaction(typeOf, value, msg, date, cat, idIndex);
+    idIndex++;
+
+    // let partToRemove = goalManager.calculateProgress(t.value);
+
+    // transactionManager.removeFromBalance(true, partToRemove);
+
+    // t.actualValue -= partToRemove;
+
+    fetch(URL + '/addTransaction', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(t)
+    }).then(response => {
+        response.json()
+        if (response.status != 420) {
+            failParagraph.style.display = "none";
+            succesParagraph.style.display = "";
+            transactionForm.reset();
+        } else {
+            failParagraph.style.display = "";
+            succesParagraph.style.display = "none";
         }
-    
-        let t = new Transaction(typeOf, value, msg, date, cat);
-    
-        // let partToRemove = goalManager.calculateProgress(t.value);
-    
-        // transactionManager.removeFromBalance(true, partToRemove);
-    
-        // t.actualValue -= partToRemove;
-    
-        fetch(URL + '/addTransaction', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(t)
-        }).then(response => response.json())
-            .then(transactions => {
-                if (transactions != "Fields are required") {
-                    failParagraph.style.display = "none";
-                    succesParagraph.style.display = "";
-                    transactionForm.reset();
-                } else {
-                    failParagraph.style.display = "";
-                    succesParagraph.style.display = "none";
-                }
-            })
-    });
+    })
+});
 
 //Richiedere categorie
 
@@ -74,3 +78,10 @@ fetch(URL + '/getCategories', {
             transactionForm.category.appendChild(option)
         });
     })
+
+fetch(URL + '/getTransactions', {
+    method: 'GET',
+}).then(response => response.json())
+    .then(allTransactions => {
+        idIndex = allTransactions.length;
+    });

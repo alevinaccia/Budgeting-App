@@ -1,5 +1,5 @@
 import { URL } from '../noname.js'
-import {Transaction, TransactionManager} from './Transaction Manager.js'
+import { Transaction, TransactionManager } from './Transaction Manager.js'
 
 const transactionManager = new TransactionManager;
 //const goalManager = new GoalManager;
@@ -9,7 +9,7 @@ fetch(URL + '/getTransactions', {
 }).then(response => response.json())
     .then(allTransactions => {
         transactionManager.createList(allTransactions);
-    })
+    });
 
 // fetch(URL + '/getGoals', {
 //     method: 'GET',
@@ -18,7 +18,7 @@ fetch(URL + '/getTransactions', {
 //         goalManager.createList(allGoals);
 //     })
 
-let goalID = 1;
+//let goalID = 1;
 
 // goalForm.addEventListener('submit', () => {
 
