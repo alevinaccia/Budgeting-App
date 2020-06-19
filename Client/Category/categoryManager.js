@@ -48,7 +48,7 @@ form.addEventListener('submit', () => {
         },
         body: JSON.stringify(new Category(form.name.value, form.color.value, idIndex))
     }).then(response => response.json())
-        .then(all => createList(all));
+        .then(arr => createList(arr));
 
     idIndex++;
     form.reset();

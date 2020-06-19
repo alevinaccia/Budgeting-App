@@ -17,15 +17,15 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/getTransactions', (req, res) => {
-    allTransactions.find().then( transactions => res.json(transactions));
+    allTransactions.find().then(transactions => res.json(transactions));
 })
 
 function isValidTransaction(t) {
     let bool;
 
-    if(t.msg.toString() != "" && t.value > 0 && t.typeOf != null){
+    if (t.msg.toString() != "" && t.value > 0 && t.typeOf != null) {
         bool = true;
-    }else{
+    } else {
         bool = false;
     }
     return bool;
@@ -36,7 +36,7 @@ function isValidTransaction(t) {
 // })
 
 app.get('/getCategories', (req, res) => {
-    allCategories.find().then( categories => res.json(categories));
+    allCategories.find().then(categories => res.json(categories));
 })
 
 // app.post('/updateGoals', (req, res) => {
@@ -55,7 +55,7 @@ app.post('/addTransaction', (req, res) => {
     console.log(isValidTransaction(req.body));
     if (isValidTransaction(req.body)) {
         allTransactions.insert(req.body);
-        allTransactions.find().then( transactions => res.json(transactions));
+        allTransactions.find().then(transactions => res.json(transactions));
     }
     else {
         res.statusCode = 420;
@@ -65,9 +65,9 @@ app.post('/addTransaction', (req, res) => {
     }
 })
 
-app.post('/addCategory', (req , res) => {
+app.post('/addCategory', (req, res) => {
     allCategories.insert(req.body);
-    allCategories.find().then( categories => res.json(categories));;
+    allCategories.find().then(categories => res.json(categories));
 })
 
 // app.post('/addGoal', (req, res) => {
@@ -75,16 +75,16 @@ app.post('/addCategory', (req , res) => {
 //     res.json(allGoals);
 // })
 
-app.delete('/removeCategory', (req,res) => {
-    let element = allCategories.find(id => id = req.body.id);
-    allCategories.splice(allCategories.indexOf(element), 1);
-    res.json(allCategories);
+app.delete('/removeCategory', (req, res) => {
+    allCategories.findOne(({ id: Number(req.body.id.substring(3)) }))
+        .then(element => allCategories.remove(element))
+    .then(() => allCategories.find().then(categories => res.json(categories)))
 })
 
-app.delete('/removeTransaction', (req,res) => {
-    let element = allTransactions.find(id => id = req.body.id);
-    allTransactions.splice(allTransactions.indexOf(element), 1);
-    res.json(allTransactions);
+app.delete('/removeTransaction', (req, res) => {
+    allTransactions.findOne(({ id: Number(res.body) }))
+        .then(element => allTransactions.remove(element))
+    .then(() => allTransactions.find().then(transactions => res.json(transactions)))
 })
 
 app.listen(5000, () => {

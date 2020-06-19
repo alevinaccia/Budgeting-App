@@ -1,4 +1,4 @@
-import { URL } from "../noname.js";
+import { URL } from "../env.js";
 import { Transaction } from "../Main/Transaction Manager.js"
 
 const transactionForm = document.querySelector("#transactionForm");

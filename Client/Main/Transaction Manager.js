@@ -89,8 +89,9 @@ export class TransactionManager {
         } else {
             li.style.borderColor = t.category.color;
         }
-        
+
         t.typeOf == true ? (c = "income") : (c = "expense");
+        
 
         li.innerHTML = `${t.msg} <span class=${c}>${t.value}€</span>`;
 
