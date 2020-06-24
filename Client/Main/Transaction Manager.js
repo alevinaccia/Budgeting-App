@@ -1,12 +1,12 @@
 export class Transaction {
-    constructor(typeOf, value, msg, date, category, id) {
+    constructor(typeOf, value, msg, date, category, user) {
         this.typeOf = typeOf;
         this.value = value;
         this.msg = msg;
         this.actualValue = value;
         this.date = date;
         this.category = category;
-        this.id = id;
+        this.user = user;
     }
 }
 
@@ -72,17 +72,15 @@ export class TransactionManager {
     }
 
     display() {
-
         this.entriesElement.innerHTML = `${this.entries}`;
         this.outElement.innerHTML = `${this.outings}`;
         this.balanceElement.innerHTML = `Balance ${this.balance}`;
-
     }
 
     addElementToList(t) {
         let c;
         let li = document.createElement("li");
-        li.setAttribute("id", `t${t.id}`);
+        li.setAttribute("id", `t${t._id}`);
         li.setAttribute("class", "transactionListElement");
         if (t.category == null) {
             li.style.borderColor = "rgb(255, 255, 255)";
@@ -92,20 +90,20 @@ export class TransactionManager {
 
         t.typeOf == true ? (c = "income") : (c = "expense");
         
-
         li.innerHTML = `${t.msg} <span class=${c}>${t.value}€</span>`;
 
         this.ul.appendChild(li);
 
     }
 
-    createList(arr) {
+    createList(arr, currentUser) {
         this.ul.innerHTML = "";
+        let filteredArr = arr.filter(transaction => transaction.user == currentUser)
 
-        arr.forEach((transaction) => {
-            this.addElementToList(transaction);
-        })
-        this.calculateBalance(arr);
+        for(let i = filteredArr.length-1; i >= 0; i--){
+            this.addElementToList(filteredArr[i]);
+        }
+        this.calculateBalance(filteredArr);
         this.display();
     }
 

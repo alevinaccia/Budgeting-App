@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../newStyle.css">
+    <title>My Website</title>
+</head>
+
+<body>
+    <header>
+        <h1>Budgeting App</h1>
+        <nav>
+            <ul>
+                <li><a class="toolbar" href="../Transaction/transaction.html">Transactions</a></li>
+                <li><a class="toolbar" href="../Category/categoryManager.html">Categories</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <form id="form">
+        <input type="text" name="username" id="username" placeholder="Username" autocomplete="off"><br>
+        <input type="password" name="password" id="password" placeholder="Password"><br>
+        <input type="button" id="login" value="Login" onclick="loginfunc()">
+        <input type="button" id="signup" style="display : none" value="Signup" onclick="signupfunc()">
+    </form>
+    <p id="signupbtn">New user? <button onclick="showSignup()">Sign up!</button></p>
+    <p id="loginbtn" style="display : none">Already registred? <button onclick="showLogin()">Login!</button></p>
+</body>
+    <script src="auth.js"></script>
+</html>

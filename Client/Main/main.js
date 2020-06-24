@@ -2,13 +2,14 @@ import { URL } from '../env.js'
 import { Transaction, TransactionManager } from './Transaction Manager.js'
 
 const transactionManager = new TransactionManager;
+const currentUser = localStorage.getItem('currentUser');
 //const goalManager = new GoalManager;
 
 fetch(URL + '/getTransactions', {
     method: 'GET',
 }).then(response => response.json())
     .then(allTransactions => {
-        transactionManager.createList(allTransactions);
+        transactionManager.createList(allTransactions, currentUser);
     });
 
 // fetch(URL + '/getGoals', {

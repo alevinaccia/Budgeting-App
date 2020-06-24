@@ -1,15 +1,20 @@
+const currentUser = localStorage.getItem('currentUser');
+
 class Category {
-    constructor(name, color, id) {
+    constructor(name, color, id, user) {
         this.name = name;
         this.color = color;
         this.id = id;
+        this.user = user
     }
 }
 
 
 const createList = (arr) => {
+    let filteredArr = arr.filter(user => user.user == currentUser)
     div.innerHTML = "";
-    arr.forEach(category => {
+
+    filteredArr.forEach(category => {
         let p = document.createElement("p");
         p.innerText = category.name;
         p.style.borderStyle = "solid";
@@ -46,9 +51,9 @@ form.addEventListener('submit', () => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(new Category(form.name.value, form.color.value, idIndex))
+        body: JSON.stringify(new Category(form.name.value, form.color.value, idIndex, currentUser))
     }).then(response => response.json())
-        .then(arr => createList(arr));
+        .then(arr => createList(arr, currentUser));
 
     idIndex++;
     form.reset();

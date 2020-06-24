@@ -2,9 +2,10 @@ import { URL } from "../env.js";
 import { Transaction } from "../Main/Transaction Manager.js"
 
 const transactionForm = document.querySelector("#transactionForm");
+const user = localStorage.getItem('currentUser');
 let allCat;
-let date = new Date();
-let idIndex;
+let d = new Date();
+let date = `${d.getHours()}:${d.getMinutes()} ${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
 
 let succesParagraph = document.querySelector("#succesfullMessage");
 let failParagraph = document.querySelector("#failMessage");
@@ -17,10 +18,8 @@ transactionForm.addEventListener('submit', () => {
     let msg = transactionForm.msg.value;
     let typeOf = transactionForm.type.value;
     let name = transactionForm.category.value;
-    let cat;
+    let cat = allCat.find(e => e.name == name) || null;
     
-    if(cat) {cat = allCat.find(e => e.name == name) || null;}
-
     switch (typeOf) {
         case (""):
             typeOf = null;
@@ -35,8 +34,7 @@ transactionForm.addEventListener('submit', () => {
             break;
     }
 
-    let t = new Transaction(typeOf, value, msg, date, cat, idIndex);
-    idIndex++;
+    let t = new Transaction(typeOf, value, msg, date, cat, user);
 
     // let partToRemove = goalManager.calculateProgress(t.value);
 
@@ -78,10 +76,3 @@ fetch(URL + '/getCategories', {
             transactionForm.category.appendChild(option)
         });
     })
-
-fetch(URL + '/getTransactions', {
-    method: 'GET',
-}).then(response => response.json())
-    .then(allTransactions => {
-        idIndex = allTransactions.length;
-    });
