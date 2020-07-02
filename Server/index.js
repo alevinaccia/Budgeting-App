@@ -6,13 +6,12 @@ const app = express();
 const monk = require("monk");
 const bcrypt = require("bcrypt");
 
-const connectionString = "localhost/Budgeting";
+const connectionString = 'mongodb+srv://alevinaccia:alevinaccia@cluster0-lsl8c.gcp.mongodb.net/Budgeting?retryWrites=true&w=majority';
 const db = monk(connectionString);
 
 
 //Temp
 let allTransactions = db.get('transactions');
-//let allGoals = [];
 let allCategories = db.get('categories');
 let users = db.get('users');
 //Temp
@@ -38,8 +37,7 @@ function isValidTransaction(t) {
 async function login(username, password) {
     await users.findOne({ username: username }).then((foundUser) => {
         if (foundUser != null) {
-            bcrypt.compareSync(password, foundUser.password);
-            bool = true;
+            bool = bcrypt.compareSync(password, foundUser.password);
         } else {
             bool = false;
         }
@@ -60,16 +58,13 @@ async function signUp(username, password) {
     return bool;
 }
 
-// app.get('/getGoals', (req, res) => {
-//     res.json(allGoals);
-// })
-
 app.get('/getCategories', (req, res) => {
     allCategories.find().then(categories => res.json(categories));
 })
 
 app.get('/login', (req, res) => {
     login(req.headers.username, req.headers.password).then(result => {
+
         if(result){
             res.json({'currentUser' : req.headers.username});
         }else{
@@ -79,16 +74,6 @@ app.get('/login', (req, res) => {
     })
 })
 
-// app.post('/updateGoals', (req, res) => {
-//     let temp = req.body;
-//     for (let i = 0; i < temp.length; i++) {
-//         for (let z = 0; z < allGoals.length; z++) {
-//             if (temp[i].id == allGoals[z].id) {
-//                 allGoals[z].actualPercentage = temp[i].newPercentage;
-//             }
-//         }
-//     }
-// })
 app.post('/signup', (req, res) => {
     signUp(req.headers.username, req.headers.password).then(result => {
         if (result) {
@@ -117,11 +102,6 @@ app.post('/addCategory', (req, res) => {
     allCategories.insert(req.body);
     allCategories.find().then(categories => res.json(categories));
 })
-
-// app.post('/addGoal', (req, res) => {
-//     allGoals.unshift(req.body);
-//     res.json(allGoals);
-// })
 
 app.delete('/removeCategory', (req, res) => {
     allCategories.findOne(({ id: Number(req.body.id.substring(3)) }))
