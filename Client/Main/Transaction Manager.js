@@ -90,7 +90,7 @@ export class TransactionManager {
 
         t.typeOf == true ? (c = "income") : (c = "expense");
         
-        li.innerHTML = `${t.msg} <span class=${c}>${t.value}€</span>`;
+        li.innerHTML = `${t.msg} <span class=${c}>${t.value}€`;
 
         this.ul.appendChild(li);
 

@@ -134,9 +134,30 @@ form button{
     align-items: center;
     color: rgb(200,200,200);
     margin: 4% 30%;
-    justify-content: center;
+    justify-content: space-evenly;
     border: solid 5px;
     border-radius: 1em;
+}
+
+.cntLoginSignup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: whitesmoke;
+}
+
+.cntLoginSignup button{
+    padding: 1em;
+    font-size: 0.5em;
+    font-family: 'Segoe UI';
+    font-weight: bold;
+    border-radius: 0.5em;
+    border: solid 0px;
+}
+
+.cntLoginSignup p{
+    font-family: sans-serif;
+    font-size: 2em;
 }
 
 .categories button{
@@ -159,6 +180,8 @@ form button{
 }
 
 .transactionListElement{
+    display: flex;
+    justify-content: space-between;
     font-size: 2em;
     font-family: 'Courier New', Courier, monospace;
     color: white;
@@ -167,6 +190,12 @@ form button{
     margin: 1em;
     border: 6px solid;
     border-radius: 0.5em;
+    transition-duration: 0.2s;
+}
+
+.transactionListElement:hover{
+    transform: scale(1.5);
+    font-size: 1.5em;
 }
 
 .ui-response{
